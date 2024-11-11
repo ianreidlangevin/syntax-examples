@@ -1,0 +1,14 @@
+{% load i18n %}
+<div
+  data-component="countdown"
+  class="sh-2fa-countdown__text"
+  data-hx-get="{{ url }}"
+  data-hx-trigger="countdownEnd"
+  data-hx-swap="outerHTML"
+>
+  <div>
+  {% blocktrans with countdown=countdown|default:30 trimmed %}
+    Resend in <span data-countdown-timer>{{ countdown }}</span> seconds
+  {% endblocktrans %}
+  </div>
+</div>
