@@ -1,30 +1,34 @@
 /**
 --------------------------------------------------------------------------
   @class Clipboard
-  @description A reusable utility to handle copy to clipboard functionality.
+  @description A reusable utility to handle copy-to-clipboard functionality.
 --------------------------------------------------------------------------
 */
 
-export class Clipboard {
-  constructor(el, { toggleDuration = 2000 } = {}) {
-    this.el = el;
-    this.toggleDuration = toggleDuration;
+import { logDebug } from "../helpers/debug";
+import { parseNumber } from "../helpers/parsers";
 
-    // Identify the button and text to copy within the component (el)
-    this.copyButton = this.el.querySelector("[data-fx-clipboard-ref='copy']");
-    this.copyContent = this.el.querySelector(
-      "[data-fx-clipboard-ref='content']"
+export class Clipboard {
+  constructor(el) {
+    this.el = el;
+    this.toggleDuration = parseNumber(
+      el.getAttribute("data-fx-clipboard-duration"),
+      2000
     );
+    this.copyButton = this.el.querySelector("[data-fx-clipboard-ref='copy']");
+    this.copyContent = this.el.querySelector("[data-fx-clipboard-ref='content']");
 
     if (!this.copyButton || !this.copyContent) {
-      // necessary ?
-      console.warn("Clipboard component is missing required elements.");
+      logDebug("Clipboard component is missing required elements.", { el });
       return;
     }
+
+    this.init();
   }
 
   /**
    * @method init
+   * @description Initialize the copy to clipboard.
    */
   init() {
     this.copyButton.addEventListener("click", (event) => {
@@ -35,7 +39,7 @@ export class Clipboard {
 
   /**
    * @method copyCode
-   * @description Copy using the native clipboard function
+   * @description Copies text to the clipboard.
    */
   async copyCode() {
     try {
@@ -48,11 +52,10 @@ export class Clipboard {
 
   /**
    * @method toggleState
-   * @description Adds an attribute to the component for styling
+   * @description Sets data-fx-clipboard-state="copied" for styling.
    */
   toggleState() {
     this.el.setAttribute("data-fx-clipboard-state", "copied");
-
     setTimeout(() => {
       this.el.removeAttribute("data-fx-clipboard-state");
     }, this.toggleDuration);

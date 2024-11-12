@@ -73,20 +73,3 @@ Represents the state of a component. Used to apply conditional styles or behavio
   <!-- Styles triggered by "copied" state -->
 </div>
 ```
-
----
-
-## Usage (WIP)
-
-We use onmount to initialize all instances of a component, (to do: mention dynamically added, etc.)
-
-```javascript
-import onmount from "onmount";
-import { Countdown } from "./countdown.js";
-
-onmount("[data-fx-component='countdown']", function () {
-  new Countdown(this).init();
-});
-```
-
-To-Do: Evaluate whether we should auto-init components when possible (within the component itself). This might not be ideal, as it could prevent us from adding methods to a component and executing them in index.js.

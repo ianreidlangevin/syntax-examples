@@ -1,28 +1,39 @@
 /**
 --------------------------------------------------------------------------
   @class Countdown
-  @description TODO ian
+  @description A reusable countdown timer component.
 --------------------------------------------------------------------------
 */
+
 import htmx from "htmx.org";
+import { logDebug } from "../helpers/debug";
 
 export class Countdown {
   constructor(el, { timerSelector = "[data-fx-countdown-ref='timer']" } = {}) {
     this.el = el;
     this.timer = el.querySelector(timerSelector);
 
-    if (!this.timer) return; // warn in console ?
+    if (!this.timer) {
+      logDebug("Timer element not found in Countdown component.", { el });
+      return;
+    }
 
-    this.timeout = parseInt(this.timer.textContent, 10);
+    this.timeout = parseInt(this.timer.textContent, 10) || 0; // Fallback to 0 if invalid
     this.interval = null;
+
+    this.init();
   }
 
+  /**
+   * @method init
+   * @description Initialize the countdown timer.
+   */
   init() {
     const tick = () => {
       this.timeout--;
       if (this.timeout === 0) {
         htmx.trigger(this.el, "countdownEnd");
-        clearInterval(this.interval); // to me : maybe use the stop method ?
+        this.stop();
         return;
       }
       this.timer.textContent = this.timeout;
@@ -32,6 +43,10 @@ export class Countdown {
     this.timer.textContent = this.timeout;
   }
 
+  /**
+   * @method stop
+   * @description Stops the countdown timer and clears the interval.
+   */
   stop() {
     if (this.interval) {
       clearInterval(this.interval);
