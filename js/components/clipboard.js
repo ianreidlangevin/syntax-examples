@@ -15,7 +15,7 @@ export class Clipboard {
       el.getAttribute("data-fx-clipboard-duration"),
       2000
     );
-    this.copyButton = this.el.querySelector("[data-fx-clipboard-ref='copy']");
+    this.copyButton = this.el.querySelector("[data-fx-clipboard-ref='trigger']");
     this.copyContent = this.el.querySelector("[data-fx-clipboard-ref='content']");
 
     if (!this.copyButton || !this.copyContent) {
