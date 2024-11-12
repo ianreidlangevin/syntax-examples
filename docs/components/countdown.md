@@ -36,4 +36,4 @@ onmount("[data-fx-component='countdown']", function () {
 | Attribute                         | Description                                  | Default       |
 |:----------------------------------|:---------------------------------------------|:--------------|
 | `data-fx-component="countdown"`    | Identifies the countdown component. | N/A           |
-| `data-fx-clipboard-ref="timer"` | Identifies the element displaying the countdown timer.                   | N/A           |
+| `data-fx-countdown-ref="timer"` | Identifies the element displaying the countdown timer.                   | N/A           |

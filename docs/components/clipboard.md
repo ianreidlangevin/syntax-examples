@@ -32,6 +32,7 @@ onmount("[data-fx-component='clipboard']", function () {
 
 | Attribute                         | Description                                  | Default       |
 |:----------------------------------|:---------------------------------------------|:--------------|
+| `data-fx-component="clipboard"`    | Identifies the clipboard component. | N/A           |
 | `data-fx-clipboard-ref="copy"`    | Identifies the button triggering the copy action. | N/A           |
 | `data-fx-clipboard-ref="content"` | Text element to copy.                        | N/A           |
 | `data-fx-clipboard-duration`      | Duration of the "copied" state in milliseconds. | `2000`        |
