@@ -1,0 +1,29 @@
+<!-- Trigger (outside the component, but still a related ref) -->
+<button data-fx-modal-ref="open"
+        data-fx-modal-target="modal-{{ device.key }}"
+        class="sh-btn-delete">{% trans 'Delete' %}</button>
+
+<!-- Native dialog HTML element for modal -->
+<dialog data-fx-component="modal"
+        data-fx-modal-id="modal-{{ device.key }}"
+        role="alertdialog">
+  <div class="sh-modal">
+    <form class="sh-modal__content"
+          action="{{ device.url_delete }}"
+          method="post">
+      {% csrf_token %}
+      <div class="sh-modal__heading">{% trans 'Delete two-factor device' %}</div>
+      <p>
+        {% block modal.content %}
+          {% blocktrans with device=device.display_name_account_settings trimmed %}
+            Are you sure you want to delete two-factor device: <strong>{{ device }}</strong>?
+          {% endblocktrans %}
+        {% endblock %}
+      </p>
+      <div class="sh-modal__buttons">
+        <button type="submit" class="sh-btn-delete">{% trans 'Confirm' %}</button>
+        <button type="button" data-fx-modal-ref="close" class="sh-btn-primary">{% trans 'Close' %}</button>
+      </div>
+    </form>
+  </div>
+</dialog>

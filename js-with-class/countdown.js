@@ -1,21 +1,19 @@
 /**
 --------------------------------------------------------------------------
   @class Countdown
-  @description To update with onMount
+  @description TODO ian
 --------------------------------------------------------------------------
 */
 import htmx from "htmx.org";
 
-// draft code
-
 export class Countdown {
-  constructor(el, { timerSelector = "[data-countdown-timer]" } = {}) {
+  constructor(el, { timerSelector = "[data-fx-countdown-ref='timer']" } = {}) {
     this.el = el;
-    this.countdownRef = el.querySelector(timerSelector);
+    this.timer = el.querySelector(timerSelector);
 
-    if (!this.countdownRef) return;
+    if (!this.timer) return; // warn in console ?
 
-    this.timeout = parseInt(this.countdownRef.textContent, 10);
+    this.timeout = parseInt(this.timer.textContent, 10);
     this.interval = null;
   }
 
@@ -27,11 +25,11 @@ export class Countdown {
         clearInterval(this.interval); // to me : maybe use the stop method ?
         return;
       }
-      this.countdownRef.textContent = this.timeout;
+      this.timer.textContent = this.timeout;
     };
 
     this.interval = setInterval(tick, 1000);
-    this.countdownRef.textContent = this.timeout;
+    this.timer.textContent = this.timeout;
   }
 
   stop() {
