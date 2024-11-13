@@ -22,10 +22,11 @@ export class PhoneMask {
    */
   init() {
     this.el.addEventListener("input", (event) => {
+      if (event.inputType === "deleteContentBackward") return; // Skip formatting if the user is deleting
       const input = event.target;
       const rawValue = input.value.replace(/\D/g, ""); // Remove any non-numeric characters
-      const trimmedValue = this.trimToMaxLength(rawValue); // Force a max length
-      input.value = this.formatPhoneNumber(trimmedValue); // Format the value
+      const trimmedValue = this.trimToMaxLength(rawValue);
+      input.value = this.formatPhoneNumber(trimmedValue);
     });
   }
 
