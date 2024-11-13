@@ -8,12 +8,12 @@
 import "../scss/index.scss";
 
 // JavaScript
-import IMask from "imask";
 import onmount from "onmount";
 import { Countdown } from "../../shared/js/components/countdown.js";
 import { Modal } from "../../shared/js/components/modal.js";
 import { Clipboard } from "../../shared/js/components/clipboard.js";
 import { Reveal } from "../../shared/js/components/reveal.js";
+import { PhoneMask } from "../../shared/js/masks/phone.js";
 
 // global event listeners for onmount
 document.addEventListener("DOMContentLoaded", () => onmount());
@@ -36,11 +36,6 @@ onmount("[data-fx-component='reveal']", function () {
   new Reveal(this);
 });
 
-
-// Input Mask for SMS Phone Number (2fa)
-const smsPhoneNumber = document.querySelector("#id_cellphone");
-if (smsPhoneNumber) {
-  IMask(smsPhoneNumber, {
-    mask: "(000) 000-0000",
-  });
-}
+onmount("[data-fx-mask='phone']", function () {
+  new PhoneMask(this);
+});
